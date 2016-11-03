@@ -22,14 +22,6 @@ namespace Pk.Signals.Tests
     }
 
 
-    [Theory]
-    [MemberData(nameof(VoltageSignalTests.AllWaveforms))]
-    public void HoldsOntoWaveformGiven(Waveform waveform)
-    {
-      var signalUnderTest = new VoltageSignal(waveform, ElectricPotential.FromVolts(1));
-      signalUnderTest.Waveform.ShouldBe(waveform);
-    }
-
     [Fact]
     public void ConstructionFromGain()
     {
@@ -44,11 +36,23 @@ namespace Pk.Signals.Tests
     }
 
 
+    [Theory]
+    [MemberData(nameof(VoltageSignalTests.AllWaveforms))]
+    public void HoldsOntoWaveformGiven(Waveform waveform)
+    {
+      var signalUnderTest = new VoltageSignal(waveform, ElectricPotential.FromVolts(1));
+      signalUnderTest.Waveform.ShouldBe(waveform);
+    }
+
+
     [Fact]
     public void ReportsGainOfSignal()
     {
-      var signalUnderTest = VoltageSignal.AsSinusoid(ElectricPotential.FromVolts(3.0));
+      var signalUnderTest = VoltageSignal.FromPeakAsSinusoid(ElectricPotential.FromVolts(3.0));
       signalUnderTest.Gain.DecibelsUnloaded.ShouldBe(8.750612638, Tolerance.ToWithinUnitsNetError);
+
+      signalUnderTest = VoltageSignal.FromRmsAsSinusoid(ElectricPotential.FromVolts(1));
+      signalUnderTest.Gain.DecibelsUnloaded.ShouldBe(2.218487499, Tolerance.ToWithinUnitsNetError);
     }
   }
 }

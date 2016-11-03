@@ -27,12 +27,23 @@ namespace Pk.Signals.Tests
     [InlineData(100, 70.71067812)]
     public void ConstructionAsSinusoid(double peak, double rms)
     {
-      var signalUnderTest = CurrentSignal.AsSinusoid(ElectricCurrent.FromAmperes(peak));
+      var signalUnderTest = CurrentSignal.FromPeakAsSinusoid(ElectricCurrent.FromAmperes(peak));
       signalUnderTest.Peak.Amperes.ShouldBe(peak, Tolerance.ToWithinUnitsNetError);
       signalUnderTest.Rms.Amperes.ShouldBe(rms, Tolerance.ToWithinUnitsNetError);
     }
 
 
+    [Theory]
+    [InlineData(1, 0.7071067812)]
+    [InlineData(23.4, 16.54629868)]
+    [InlineData(100, 70.71067812)]
+    public void ConstructionFromRmsAsSinusoid(double peak, double rms)
+    {
+      var signalUnderTest = CurrentSignal.FromRmsAsSinusoid(ElectricCurrent.FromAmperes(rms));
+      signalUnderTest.Peak.Amperes.ShouldBe(peak, Tolerance.ToWithinUnitsNetError);
+      signalUnderTest.Rms.Amperes.ShouldBe(rms, Tolerance.ToWithinUnitsNetError);
+    }
+ 
     [Theory]
     [MemberData(nameof(CurrentSignalTests.AllWaveforms))]
     public void HoldsOntoWaveformGiven(Waveform waveform)

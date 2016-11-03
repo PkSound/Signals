@@ -6,11 +6,11 @@ namespace Pk.Signals
 {
   public struct VoltageSignal
   {
-    public VoltageSignal(Waveform waveform, ElectricPotential peak)
+    public VoltageSignal(Waveform waveform, ElectricPotential rms)
     {
-      this.Peak = peak;
       this.Waveform = waveform;
-      this.Rms = ElectricPotential.FromVolts(this.Waveform.CalculateRms(this.Peak.Volts));
+      this.Rms = rms;
+      this.Peak = ElectricPotential.FromVolts(this.Waveform.CalculatePeak(this.Rms.Volts));
       this.Gain = new AmplitudeRatio(this.Rms);
     }
 
@@ -28,11 +28,19 @@ namespace Pk.Signals
     public ElectricPotential Peak { get; }
     public ElectricPotential Rms { get; }
     public Waveform Waveform { get; }
+    public static VoltageSignal AsSinusoid(AmplitudeRatio gain) { return new VoltageSignal(Waveform.Sinusoid, gain); }
 
 
-    public static VoltageSignal AsSinusoid(ElectricPotential peak)
+    public static VoltageSignal FromPeakAsSinusoid(ElectricPotential peak)
     {
-      return new VoltageSignal(Waveform.Sinusoid, peak);
+      var rms = ElectricPotential.FromVolts(Waveform.Sinusoid.CalculateRms(peak.Volts));
+      return new VoltageSignal(Waveform.Sinusoid, rms);
+    }
+
+
+    public static VoltageSignal FromRmsAsSinusoid(ElectricPotential rms)
+    {
+      return new VoltageSignal(Waveform.Sinusoid, rms);
     }
 
 
@@ -40,11 +48,6 @@ namespace Pk.Signals
     {
       var gain = AmplitudeRatio.From(0, unit);
       return new VoltageSignal(waveform, gain);
-    }
-
-    public static VoltageSignal AsSinusoid(AmplitudeRatio gain)
-    {
-      return new VoltageSignal(Waveform.Sinusoid, gain);
     }
   }
 }
