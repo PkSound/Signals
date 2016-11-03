@@ -1,4 +1,4 @@
-version: 0.1.0-beta_build_{build}
+version: 0.2.0-beta_build_{build}
 configuration: Release
 
 before_build:
