@@ -65,10 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VoltageSignalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConstants.cs" />
     <Compile Include="Tolerance.cs" />
+    <Compile Include="VoltageSignalTests.cs" />
     <Compile Include="WaveformTests.cs" />
   </ItemGroup>
   <ItemGroup>
