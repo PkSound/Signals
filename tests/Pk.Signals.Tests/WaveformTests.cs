@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Pk.Spatial.Tests;
 using Shouldly;
-using UnitsNet;
 using Xunit;
 
 namespace Pk.Signals.Tests
@@ -42,19 +41,19 @@ namespace Pk.Signals.Tests
 
     [Theory]
     [MemberData(nameof(RmsExpectations))]
-    public void ShouldCalculatePeak(Waveform waveform, double peakVoltage, double rmsVoltage)
+    public void ShouldCalculatePeak(Waveform waveform, double peak, double rms)
     {
-      var result = waveform.CalculatePeak(ElectricPotential.FromVolts(rmsVoltage));
-      result.Volts.ShouldBe(peakVoltage, RmsTolerance);
+      var result = waveform.CalculatePeak(rms);
+      result.ShouldBe(peak, RmsTolerance);
     }
 
 
     [Theory]
     [MemberData(nameof(RmsExpectations))]
-    public void ShouldCalculateRms(Waveform waveform, double peakVoltage, double rmsVoltage)
+    public void ShouldCalculateRms(Waveform waveform, double peak, double rms)
     {
-      var result = waveform.CalculateRms(ElectricPotential.FromVolts(peakVoltage));
-      result.Volts.ShouldBe(rmsVoltage, RmsTolerance);
+      var result = waveform.CalculateRms(peak);
+      result.ShouldBe(rms, RmsTolerance);
     }
   }
 }

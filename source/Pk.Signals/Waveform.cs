@@ -1,6 +1,5 @@
 ﻿using System;
 using Headspring;
-using UnitsNet;
 
 namespace Pk.Signals
 {
@@ -17,19 +16,19 @@ namespace Pk.Signals
     public static readonly Waveform Triangle = new Waveform(2, nameof(Sinusoid), peak => peak/Math.Sqrt(3.0),
                                                             rms => rms*Math.Sqrt(3.0));
 
-    private readonly Func<ElectricPotential, ElectricPotential> calculatePeak;
-    private readonly Func<ElectricPotential, ElectricPotential> calculateRms;
+    private readonly Func<double, double> calculatePeak;
+    private readonly Func<double, double> calculateRms;
 
 
-    private Waveform(int value, string displayName, Func<ElectricPotential, ElectricPotential> calculateRms,
-                     Func<ElectricPotential, ElectricPotential> calculatePeak) : base(value, displayName)
+    private Waveform(int value, string displayName, Func<double, double> calculateRms,
+                     Func<double, double> calculatePeak) : base(value, displayName)
     {
       this.calculateRms = calculateRms;
       this.calculatePeak = calculatePeak;
     }
 
 
-    public ElectricPotential CalculatePeak(ElectricPotential rms) { return this.calculatePeak(rms); }
-    public ElectricPotential CalculateRms(ElectricPotential peak) { return this.calculateRms(peak); }
+    public double CalculatePeak(double rms) { return this.calculatePeak(rms); }
+    public double CalculateRms(double peak) { return this.calculateRms(peak); }
   }
 }
