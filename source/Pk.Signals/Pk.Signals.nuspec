@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/PkSound/Signals/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/PkSound/Signals/blob/develop/LICENSE</projectUrl>
+    <description>$description$</description>
+    <releaseNotes>A helpful library for including signals into your domain model.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>math electrical engineering EE signals audio unit units measurement si metric imperial convert c# .net parse immutable</tags>
+  </metadata>
+</package>
