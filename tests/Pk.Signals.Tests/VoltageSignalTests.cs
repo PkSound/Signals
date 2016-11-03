@@ -50,9 +50,12 @@ namespace Pk.Signals.Tests
     {
       var signalUnderTest = VoltageSignal.FromPeakAsSinusoid(ElectricPotential.FromVolts(3.0));
       signalUnderTest.Gain.DecibelsUnloaded.ShouldBe(8.750612638, Tolerance.ToWithinUnitsNetError);
+      signalUnderTest.Peak.Volts.ShouldBe(3.0);
 
-      signalUnderTest = VoltageSignal.FromRmsAsSinusoid(ElectricPotential.FromVolts(1));
+
+      signalUnderTest = VoltageSignal.FromRmsAsSinusoid(1);
       signalUnderTest.Gain.DecibelsUnloaded.ShouldBe(2.218487499, Tolerance.ToWithinUnitsNetError);
+      signalUnderTest.Rms.Volts.ShouldBe(1);
     }
   }
 }

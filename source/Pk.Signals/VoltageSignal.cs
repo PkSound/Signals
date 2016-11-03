@@ -31,10 +31,21 @@ namespace Pk.Signals
     public static VoltageSignal AsSinusoid(AmplitudeRatio gain) { return new VoltageSignal(Waveform.Sinusoid, gain); }
 
 
+    public static VoltageSignal FromPeakAsSinusoid(double peak)
+    {
+      var rms = ElectricPotential.FromVolts(Waveform.Sinusoid.CalculateRms(peak));
+      return new VoltageSignal(Waveform.Sinusoid, rms);
+    }
+
+
+    public static VoltageSignal FromRmsAsSinusoid(double rms)
+    {
+      return VoltageSignal.FromRmsAsSinusoid(ElectricPotential.FromVolts(rms));
+    }
+
     public static VoltageSignal FromPeakAsSinusoid(ElectricPotential peak)
     {
-      var rms = ElectricPotential.FromVolts(Waveform.Sinusoid.CalculateRms(peak.Volts));
-      return new VoltageSignal(Waveform.Sinusoid, rms);
+      return VoltageSignal.FromPeakAsSinusoid(peak.Volts);
     }
 
 
