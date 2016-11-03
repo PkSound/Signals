@@ -1,5 +1,4 @@
-﻿using System;
-using UnitsNet;
+﻿using UnitsNet;
 using UnitsNet.CustomCode.Extensions;
 using UnitsNet.Units;
 
