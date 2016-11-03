@@ -10,16 +10,16 @@ namespace Pk.Signals
     public static readonly Waveform Square = new Waveform(1, nameof(Sinusoid), peak => peak);
     public static readonly Waveform Triangle = new Waveform(2, nameof(Sinusoid), peak => peak / Math.Sqrt(3.0));
     public static readonly Waveform Sawtooth = new Waveform(3, nameof(Sinusoid), peak => peak / Math.Sqrt(3.0));
-    private readonly Func<ElectricPotential, ElectricPotential> rms;
+    private readonly Func<ElectricPotential, ElectricPotential> calculateRms;
 
 
     private Waveform(int value, string displayName, Func<ElectricPotential, ElectricPotential> calculateRms)
         : base(value, displayName)
     {
-      this.rms = calculateRms;
+      this.calculateRms = calculateRms;
     }
 
-
-    public ElectricPotential CalculateRms(ElectricPotential peak) { return this.rms(peak); }
+    
+    public ElectricPotential CalculateRms(ElectricPotential peak) { return this.calculateRms(peak); }
   }
 }
