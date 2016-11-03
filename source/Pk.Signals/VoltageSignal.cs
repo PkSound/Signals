@@ -1,5 +1,4 @@
-﻿using System;
-using UnitsNet;
+﻿using UnitsNet;
 using UnitsNet.CustomCode.Extensions;
 using UnitsNet.Units;
 
@@ -11,7 +10,7 @@ namespace Pk.Signals
     {
       this.Peak = peak;
       this.Waveform = waveform;
-      this.Rms = this.Waveform.CalculateRms(this.Peak);
+      this.Rms = ElectricPotential.FromVolts(this.Waveform.CalculateRms(this.Peak.Volts));
       this.Gain = new AmplitudeRatio(this.Rms);
     }
 
@@ -21,7 +20,7 @@ namespace Pk.Signals
       this.Waveform = waveform;
       this.Gain = gain;
       this.Rms = gain.ToElectricPotential();
-      this.Peak = this.Waveform.CalculatePeak(this.Rms);
+      this.Peak = ElectricPotential.FromVolts(this.Waveform.CalculatePeak(this.Rms.Volts));
     }
 
 
