@@ -16,11 +16,21 @@ namespace Pk.Signals
     public ElectricCurrent Rms { get; }
     public Waveform Waveform { get; }
 
+    public static CurrentSignal FromPeakAsSinusoid(double peak)
+    {
+      var rms = ElectricCurrent.FromAmperes(Waveform.Sinusoid.CalculateRms(peak));
+      return new CurrentSignal(Waveform.Sinusoid, rms);
+    }
+
+
+    public static CurrentSignal FromRmsAsSinusoid(double rms)
+    {
+      return CurrentSignal.FromRmsAsSinusoid(ElectricCurrent.FromAmperes(rms));
+    }
 
     public static CurrentSignal FromPeakAsSinusoid(ElectricCurrent peak)
     {
-      var rms = ElectricCurrent.FromAmperes(Waveform.Sinusoid.CalculateRms(peak.Amperes));
-      return new CurrentSignal(Waveform.Sinusoid, rms);
+      return  CurrentSignal.FromPeakAsSinusoid(peak.Amperes);
     }
 
 

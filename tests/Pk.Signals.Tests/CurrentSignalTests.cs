@@ -39,7 +39,7 @@ namespace Pk.Signals.Tests
     [InlineData(100, 70.71067812)]
     public void ConstructionFromRmsAsSinusoid(double peak, double rms)
     {
-      var signalUnderTest = CurrentSignal.FromRmsAsSinusoid(ElectricCurrent.FromAmperes(rms));
+      var signalUnderTest = CurrentSignal.FromRmsAsSinusoid(rms);
       signalUnderTest.Peak.Amperes.ShouldBe(peak, Tolerance.ToWithinUnitsNetError);
       signalUnderTest.Rms.Amperes.ShouldBe(rms, Tolerance.ToWithinUnitsNetError);
     }
