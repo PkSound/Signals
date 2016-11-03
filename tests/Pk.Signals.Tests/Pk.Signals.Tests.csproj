@@ -31,12 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Enumeration">
+      <HintPath>..\..\libraries\Nuget\Enumeration.dll.2.0.3\lib\net45\Enumeration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Shouldly">
       <HintPath>..\..\libraries\Nuget\Shouldly.2.8.2\lib\net451\Shouldly.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
