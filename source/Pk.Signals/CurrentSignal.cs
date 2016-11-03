@@ -4,11 +4,11 @@ namespace Pk.Signals
 {
   public struct CurrentSignal
   {
-    public CurrentSignal(Waveform waveform, ElectricCurrent peak)
+    public CurrentSignal(Waveform waveform, ElectricCurrent rms)
     {
       this.Waveform = waveform;
-      this.Peak = peak;
-      this.Rms = ElectricCurrent.FromAmperes(this.Waveform.CalculateRms(this.Peak.Amperes));
+      this.Rms = rms;
+      this.Peak = ElectricCurrent.FromAmperes(Waveform.Sinusoid.CalculatePeak(this.Rms.Amperes));
     }
 
 
@@ -17,9 +17,16 @@ namespace Pk.Signals
     public Waveform Waveform { get; }
 
 
-    public static CurrentSignal AsSinusoid(ElectricCurrent peak)
+    public static CurrentSignal FromPeakAsSinusoid(ElectricCurrent peak)
     {
-      return new CurrentSignal(Waveform.Sinusoid, peak);
+      var rms = ElectricCurrent.FromAmperes(Waveform.Sinusoid.CalculateRms(peak.Amperes));
+      return new CurrentSignal(Waveform.Sinusoid, rms);
+    }
+
+
+    public static CurrentSignal FromRmsAsSinusoid(ElectricCurrent rms)
+    {
+      return new CurrentSignal(Waveform.Sinusoid, rms);
     }
   }
 }
